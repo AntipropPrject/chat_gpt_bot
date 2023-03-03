@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+
+  bot:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: bash -c 'python bot.py'
+    volumes:
+      - ./bot:/bot
+    networks:
+      - name_net
+
+  redis:
+    image: redis
+    container_name: bot_redis_new
+    ports:
+      - "6379:6379"
+    command: redis-server
+    networks:
+      - name_net
+
+
+networks:
+  name_net:
+    driver: bridge
+
